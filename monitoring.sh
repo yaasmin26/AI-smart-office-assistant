@@ -1,18 +1,14 @@
 #!/bin/bash
 
-LOG="office_monitor.log"
+SERVER="8.8.8.8"
+LOG="monitoring.log"
 
-echo "Monitoring sistem kantor dimulai..."
+echo "Monitoring jaringan dimulai..."
 
-CPU=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}')
-MEMORY=$(free -m | awk 'NR==2{printf "%sMB/%sMB", $3,$2}')
-
-ping -c 1 google.com > /dev/null
+ping -c 1 $SERVER > /dev/null
 
 if [ $? -eq 0 ]; then
-    STATUS="Internet Normal"
+    echo "$(date) : Jaringan Normal" >> $LOG
 else
-    STATUS="Internet Bermasalah"
+    echo "$(date) : Jaringan Bermasalah" >> $LOG
 fi
-
-echo "$(date) | CPU: $CPU% | Memory: $MEMORY | Status: $STATUS" >> $LOG

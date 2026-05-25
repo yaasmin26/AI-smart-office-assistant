@@ -1,0 +1,25 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Give permission
+      run: chmod +x monitoring.sh test_monitoring.sh
+
+    - name: Run monitoring
+      run: ./monitoring.sh
+
+    - name: Run testing
+      run: ./test_monitoring.sh
+
+    - name: Deployment Simulation
+      run: echo "AI Smart Office Assistant Deployment Success"
